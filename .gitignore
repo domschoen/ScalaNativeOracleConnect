@@ -1,2 +1,13 @@
+.DS_Store
 *.class
 *.log
+
+# IDEA specific
+.idea
+
+
+target
+ideatarget
+.target
+bin
+lowered.hnir
