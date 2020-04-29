@@ -89,7 +89,8 @@ object main {
                         showError(!gContext, errorInfo)
                         continueFetching = false;
                       } else {
-                      stdio.printf(c"First name = '%.*s', Last name = '%.*s'\n",
+                      stdio.printf(c"row%3d: %-40.*s%.*s\n",
+                          count,
                           (!firstNameColValue)._2._2,  // .asBytes.length
                           (!firstNameColValue)._2._1, // .asBytes.ptr,
                           (!lastNameColValue)._2._2,
@@ -99,7 +100,7 @@ object main {
                   }
                 }
               }
-              println("Found " + count + " records")
+              println(count + " records")
             }
           }
         }
