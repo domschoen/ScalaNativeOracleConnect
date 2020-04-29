@@ -66,8 +66,8 @@ object main {
               var found : Ptr[CInt] = malloc(sizeof[CInt]).asInstanceOf[Ptr[CInt]]
               var bufferRowIndex : Ptr[CUnsignedInt] = malloc(sizeof[CUnsignedInt]).asInstanceOf[Ptr[CUnsignedInt]]
               var nativeTypeNum : Ptr[dpiNativeTypeNum] = malloc(sizeof[dpiNativeTypeNum]).asInstanceOf[Ptr[dpiNativeTypeNum]]
-              var firstNameColValue : Ptr[Ptr[dpiDataDpiBytes]] = malloc(sizeof[Ptr[dpiDataDpiBytes]]).asInstanceOf[Ptr[Ptr[dpiDataDpiBytes]]]
-              var lastNameColValue : Ptr[Ptr[dpiDataDpiBytes]] = malloc(sizeof[Ptr[dpiDataDpiBytes]]).asInstanceOf[Ptr[Ptr[dpiDataDpiBytes]]]
+              var firstColValue : Ptr[Ptr[dpiDataDpiBytes]] = malloc(sizeof[Ptr[dpiDataDpiBytes]]).asInstanceOf[Ptr[Ptr[dpiDataDpiBytes]]]
+              var secondColValue : Ptr[Ptr[dpiDataDpiBytes]] = malloc(sizeof[Ptr[dpiDataDpiBytes]]).asInstanceOf[Ptr[Ptr[dpiDataDpiBytes]]]
               var rowidValue : Ptr[Ptr[dpiData]] = malloc(sizeof[Ptr[dpiData]]).asInstanceOf[Ptr[Ptr[dpiData]]]
               var continueFetching = true
               var rowidAsString : Ptr[CString] = malloc(sizeof[CString]).asInstanceOf[Ptr[CString]]
@@ -83,18 +83,18 @@ object main {
                   if (continueFetching) {
                     count = count +1
 
-                    if (dpiStmt_getQueryValue(!stmt, 1.toUInt, nativeTypeNum, firstNameColValue.asInstanceOf[Ptr[Ptr[dpiData]]]) < 0 ||
-                      dpiStmt_getQueryValue(!stmt, 2.toUInt, nativeTypeNum, lastNameColValue.asInstanceOf[Ptr[Ptr[dpiData]]]) < 0)
+                    if (dpiStmt_getQueryValue(!stmt, 1.toUInt, nativeTypeNum, firstColValue.asInstanceOf[Ptr[Ptr[dpiData]]]) < 0 ||
+                      dpiStmt_getQueryValue(!stmt, 2.toUInt, nativeTypeNum, secondColValue.asInstanceOf[Ptr[Ptr[dpiData]]]) < 0)
                       {
                         showError(!gContext, errorInfo)
                         continueFetching = false;
                       } else {
                       stdio.printf(c"row%3d: %-40.*s%.*s\n",
                           count,
-                          (!firstNameColValue)._2._2,  // .asBytes.length
-                          (!firstNameColValue)._2._1, // .asBytes.ptr,
-                          (!lastNameColValue)._2._2,
-                          (!lastNameColValue)._2._1
+                          (!firstColValue)._2._2,  // .asBytes.length
+                          (!firstColValue)._2._1, // .asBytes.ptr,
+                          (!secondColValue)._2._2,
+                          (!secondColValue)._2._1
                         );
                      }
                   }
